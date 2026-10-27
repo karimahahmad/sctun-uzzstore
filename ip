@@ -2,7 +2,6 @@
 # DATABASE IZIN IP VPS - UZZ STORE VPN
 # Format: ### <nama_user> <exp_date (YYYY-MM-DD atau Lifetime)> <ip_vps>
 # Contoh:
-# ### admin Lifetime 103.123.45.67
+# ### admin 2026-08-30 103.123.45.67
 # ==========================================
-### admin Lifetime 127.0.0.1
-### tester Lifetime 168.144.128.222
+
