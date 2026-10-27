@@ -1,0 +1,24 @@
+# UZZ STORE VPN - STABLE SSH CONFIGURATION (ANTI-DISCONNECT)
+Port 22
+Port 2222
+Port 2223
+
+PermitRootLogin yes
+PasswordAuthentication yes
+ChallengeResponseAuthentication no
+UsePAM yes
+AllowTcpForwarding yes
+X11Forwarding no
+PrintMotd no
+PrintLastLog no
+
+# Stability, KeepAlive & Anti-Disconnect Tuning
+TCPKeepAlive yes
+ClientAliveInterval 30
+ClientAliveCountMax 5
+MaxStartups 100:30:200
+MaxSessions 100
+MaxAuthTries 10
+
+Subsystem sftp /usr/lib/openssh/sftp-server
+Banner /etc/kyt.txt
