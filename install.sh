@@ -747,6 +747,7 @@ apt install -y fail2ban
 systemctl enable --now fail2ban
 systemctl restart fail2ban
 clear
+apt install dropbear -y
 echo "Banner /etc/kyt.txt" >>/etc/ssh/sshd_config
 sed -i 's@DROPBEAR_BANNER=""@DROPBEAR_BANNER="/etc/kyt.txt"@g' /etc/default/dropbear
 wget  -O /etc/kyt.txt "${REPO}limit/issue.net"
@@ -763,13 +764,11 @@ chmod 644 /usr/bin/tun.conf
 wget -O /usr/bin/ws "${REPO}limit/ws" >/dev/null 2>&1
 chmod +x /usr/bin/ws
 
-systemctl disable ws
-systemctl stop ws
 systemctl enable ws
 systemctl start ws
 systemctl restart ws
-wget  -q -O /usr/local/share/xray/geosite.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat" >/dev/null 2>&1
-wget  -q -O /usr/local/share/xray/geoip.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat" >/dev/null 2>&1
+wget -q -O /usr/local/share/xray/geosite.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geosite.dat" >/dev/null 2>&1
+wget -q -O /usr/local/share/xray/geoip.dat "https://github.com/Loyalsoldier/v2ray-rules-dat/releases/latest/download/geoip.dat" >/dev/null 2>&1
 wget  -O /usr/sbin/ftvpn "${REPO}limit/ftvpn" >/dev/null 2>&1
 chmod +x /usr/sbin/ftvpn
 iptables -A FORWARD -m string --string "get_peers" --algo bm -j DROP
@@ -799,13 +798,6 @@ rm plugin-lite
 function ins_restart(){
 clear
 print_install "Restarting  All Packet"
-systemctl restart nginx
-systemctl restart openvpn
-systemctl restart ssh
-systemctl restart dropbear
-systemctl restart fail2ban
-systemctl restart vnstat
-systemctl restart cron
 systemctl daemon-reload
 systemctl start netfilter-persistent
 systemctl enable --now nginx
@@ -817,6 +809,17 @@ systemctl enable --now cron
 systemctl enable --now netfilter-persistent
 systemctl enable --now ws
 systemctl enable --now fail2ban
+systemctl enable ws
+
+systemctl restart nginx
+systemctl restart openvpn
+systemctl restart ssh
+systemctl restart dropbear
+systemctl restart fail2ban
+systemctl restart vnstat
+systemctl restart cron
+systemctl restart ws
+
 history -c
 echo "unset HISTFILE" >> /etc/profile
 cd
